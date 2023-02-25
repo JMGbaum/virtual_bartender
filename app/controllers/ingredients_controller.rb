@@ -3,7 +3,10 @@ class IngredientsController < ApplicationController
     @ingredient = Ingredient.find(params[:id])
   end
 
-  def new
+  def index
     @ingredients = Ingredient.all
+  end
+
+  def new
   end
 end
