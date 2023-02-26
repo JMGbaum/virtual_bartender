@@ -9,7 +9,6 @@ class CreateIngredients < ActiveRecord::Migration[7.0]
       t.string :size
       t.float :abv
       t.string :purchase_url
-      t.blob :image
       t.json :metadata
     end
   end
