@@ -1,0 +1,51 @@
+<div class="card">
+    <% if @recipe.image.attached? %>
+        <%= image_tag(@recipe.image, class: 'card-img-top', style: 'max-height: 200px; object-fit: cover;') %>
+    <% else %>
+        <%= image_tag('https://via.placeholder.com/1500/', class: 'card-img-top', style: 'max-height: 200px; object-fit: cover;') %>
+    <% end %>
+
+    <div class="card-body">
+        <h1 class="card-title"><%= @recipe.title %></h1>
+        <% if @recipe.author_id? %>
+            <h6 class="text-muted">Submitted by <%= link_to(@recipe.author.first_name, @recipe.author) %></h6>
+        <% end %>
+
+        <% if @recipe.servings? %>
+            <h6 class="text-muted">Makes <%= @recipe.servings %> <%= "serving".pluralize(@recipe.servings) %></h6>
+        <% end %>
+
+        <% if @recipe.description? %>
+            <p class="card-text"><%= @recipe.description %></p>
+        <% end %>
+
+        <% if @recipe.recipe_ingredients.count.positive? %>
+            <hr>
+
+            <h4>Ingredients</h4>
+            <ul id="ingredients">
+                <% @recipe.recipe_ingredients.each do |ri| %>
+                    <li>
+                        <span>
+                            <strong><%= ri.ingredient.name %></strong>
+                            <span class="text-secondary"><%= ri.amount %> <abbr title="<%= ri.units_label %>"><%= ri.units_abbreviation %></abbr></span>
+                        </span>
+                    </li>
+                <% end %>
+            </ul>
+        <% end %>
+
+        <% if @recipe.instructions? %>
+            <hr>
+
+            <h4 class="card-title">Instructions</h5>
+            <p class="card-text"><%= simple_format(@recipe.instructions) %></p>
+        <% end %>
+    </div>
+
+    <% if @recipe.source? %>
+        <div class="card-footer text-muted">
+            <small>Recipe from <%= link_to(@recipe.source) %></small>
+        </div>
+    <% end %>
+</div>

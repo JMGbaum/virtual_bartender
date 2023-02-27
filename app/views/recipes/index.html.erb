@@ -1,0 +1,30 @@
+<%= form_tag(recipes_path, method: :get) do %>
+    <div class="input-group">
+        <%= search_field_tag(:search, params[:search], placeholder: 'Search recipes', class: 'form-control') %>
+        <%= submit_tag('Search', class: 'btn btn-primary') %>
+    </div>
+<% end %>
+
+<div id="results" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3 mt-1">
+    <% @recipes.each do |recipe| %>
+        <div class="col">
+            <div class="card">
+                <% if recipe.image.attached? %>
+                    <%= image_tag(recipe.image, class: 'card-img-top') %>
+                <% else %>
+                    <%= image_tag('https://via.placeholder.com/1500/', class: 'card-img-top') %>
+                <% end %>
+
+                <div class="card-body">
+                    <h5 class="card-title"><%= recipe.title %></h5>
+
+                    <% if recipe.description? %>
+                        <p class="card-text"><%= recipe.description.truncate(50, separator: /\s/) %></p>
+                    <% end %>
+
+                    <%= link_to('View Recipe', recipe, class: 'btn btn-primary') %>
+                </div>
+            </div>
+        </div>
+    <% end %>
+</div>

@@ -1,23 +1,23 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  id: 1
   name: MyString
-  type: 
+  type:
   is_alcoholic: false
   vintage: 2023-02-24
   size: MyString
   abv: 1.5
   purchase_url: MyString
-  image: 
-  metadata: 
+  metadata:
 
 two:
+  id: 2
   name: MyString
-  type: 
+  type:
   is_alcoholic: false
   vintage: 2023-02-24
   size: MyString
   abv: 1.5
   purchase_url: MyString
-  image: 
-  metadata: 
+  metadata:
