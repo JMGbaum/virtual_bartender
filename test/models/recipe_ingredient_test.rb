@@ -50,4 +50,18 @@ class RecipeIngredientTest < ActiveSupport::TestCase
     @recipe_ingredient.custom_unit = 'bottle'
     assert_equal @recipe_ingredient.units_abbreviation, 'bottles'
   end
+
+  test 'should get destroyed when recipe is destroyed' do
+    assert @recipe_ingredient.save
+    count = RecipeIngredient.count
+    @recipe.destroy
+    assert_equal RecipeIngredient.count, count - 1
+  end
+
+  test 'should get destroyed when ingredient is destroyed' do
+    assert @recipe_ingredient.save
+    count = RecipeIngredient.count
+    @ingredient.destroy
+    assert_equal RecipeIngredient.count, count - 1
+  end
 end
