@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   # root "articles#index"
   get "static_pages/home"
   root "static_pages#home"
+  
   resources :ingredients, only: %i[index show]
-
+  resources :recipes, only: %i[index show]
 end
