@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_25_181720) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_25_182026) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -37,6 +37,44 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_25_181720) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "ingredients", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "type"
+    t.boolean "is_alcoholic"
+    t.date "vintage"
+    t.string "size"
+    t.float "abv"
+    t.string "purchase_url"
+    t.json "metadata"
+  end
+
+  create_table "recipe_ingredients", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "ingredient_id", null: false
+    t.bigint "recipe_id", null: false
+    t.decimal "amount", precision: 5, scale: 2, null: false
+    t.integer "units", default: 0, null: false
+    t.string "custom_unit"
+    t.index ["ingredient_id"], name: "index_recipe_ingredients_on_ingredient_id"
+    t.index ["recipe_id"], name: "index_recipe_ingredients_on_recipe_id"
+  end
+
+  create_table "recipes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "title", null: false
+    t.bigint "author_id"
+    t.integer "servings"
+    t.string "glass"
+    t.text "description"
+    t.text "instructions"
+    t.string "source"
+    t.index ["author_id"], name: "index_recipes_on_author_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
