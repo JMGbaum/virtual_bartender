@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'users/new'
   # get "/ingredients", to:'ingredients#new'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
