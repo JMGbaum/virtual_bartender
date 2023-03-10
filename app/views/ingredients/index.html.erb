@@ -16,12 +16,12 @@ Hey now, you're a rock star, get the show on, get paid</p>
                         <li class="list-group-item">Vintage: <%=ingredient.vintage%></li>
                         <li class="list-group-item">Size: <%=ingredient.size%></li>
                     </ul>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            Add to Inventory
-                        </label>
-                    </div>
+                     <%= form_tag(inventory_items_path) do -%>
+                        <%=hidden_field_tag "id", ingredient.id%>
+                        <%=submit_tag 'Add', class: "btn btn-primary"%>
+
+                    <%end-%>
+                     
                 <div>
             <div>
         <div>
