@@ -1,6 +1,7 @@
 class Ingredient < ApplicationRecord
-    has_many :recipe_ingredients, dependent: :destroy, inverse_of: :ingredient
-    has_many :recipes, through: :recipe_ingredients, inverse_of: :ingredients
+    has_many :ingredient_tags, dependent: :destroy, inverse_of: :ingredient
+    has_many :tags, through: :ingredient_tags, inverse_of: :ingredients
+    has_many :recipes, through: :tags, inverse_of: :ingredients
 
-    validates :name, presence: true, length: { maximum: 50 }
+    validates :name, presence: true
 end

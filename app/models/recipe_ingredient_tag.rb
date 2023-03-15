@@ -1,9 +1,9 @@
-class RecipeIngredient < ApplicationRecord
-    belongs_to :recipe, inverse_of: :recipe_ingredients
-    belongs_to :ingredient, inverse_of: :recipe_ingredients
+class RecipeIngredientTag < ApplicationRecord
+    belongs_to :recipe, inverse_of: :recipe_ingredient_tags
+    belongs_to :tag, inverse_of: :recipe_ingredient_tags
 
     validates :recipe_id, presence: true
-    validates :ingredient_id, presence: true
+    validates :tag_id, presence: true
     validates :amount, presence: true
     validates :units, presence: true
 
