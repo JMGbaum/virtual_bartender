@@ -136,6 +136,7 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.14.0-x86_64-darwin)
       racc (~> 1.4)
+    pagy (6.0.2)
     popper_js (2.11.6)
     pry (0.14.2)
       coderay (~> 1.1)
@@ -236,6 +237,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   mysql2 (~> 0.5)
+  pagy (~> 6.0)
   pry
   puma (~> 5.0)
   rails (~> 7.0.4, >= 7.0.4.1)
