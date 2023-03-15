@@ -4,7 +4,7 @@ class IngredientsController < ApplicationController
   end
 
   def index
-    @ingredients = Ingredient.all
+    @pagy, @ingredients = pagy(Ingredient.all)
   end
 
   def new
