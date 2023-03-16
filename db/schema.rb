@@ -51,6 +51,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_15_223633) do
     t.datetime "updated_at", null: false
     t.bigint "ingredient_id", null: false
     t.bigint "tag_id", null: false
+    t.index ["ingredient_id", "tag_id"], name: "index_ingredient_tags_on_ingredient_id_and_tag_id", unique: true
     t.index ["ingredient_id"], name: "index_ingredient_tags_on_ingredient_id"
     t.index ["tag_id"], name: "index_ingredient_tags_on_tag_id"
   end
