@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_19_152919) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_19_171418) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -78,6 +78,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_19_152919) do
     t.string "custom_unit"
     t.string "mixable_type", null: false
     t.bigint "mixable_id", null: false
+    t.string "note"
     t.index ["mixable_type", "mixable_id"], name: "index_recipe_ingredients_on_mixable"
     t.index ["recipe_id"], name: "index_recipe_ingredients_on_recipe_id"
   end
