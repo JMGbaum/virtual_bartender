@@ -27,7 +27,7 @@
                 <% @recipe.recipe_ingredients.each do |ri| %>
                     <li>
                         <span>
-                            <strong><%= ri.ingredient.name %></strong>
+                            <strong><%= ri.mixable.name %></strong>
                             <span class="text-secondary"><%= ri.amount %> <abbr title="<%= ri.units_label %>"><%= ri.units_abbreviation %></abbr></span>
                         </span>
                     </li>

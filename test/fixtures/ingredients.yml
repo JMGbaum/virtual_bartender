@@ -3,7 +3,7 @@
 one:
   id: 1
   name: MyString
-  type:
+  category:
   is_alcoholic: false
   vintage: 2023-02-24
   size: MyString
@@ -14,7 +14,7 @@ one:
 two:
   id: 2
   name: MyString
-  type:
+  category:
   is_alcoholic: false
   vintage: 2023-02-24
   size: MyString

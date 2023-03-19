@@ -4,8 +4,8 @@ class Tag < ApplicationRecord
     has_many :ingredient_tags, dependent: :destroy, inverse_of: :tag
     has_many :ingredients, through: :ingredient_tags, inverse_of: :tags
 
-    has_many :recipe_ingredient_tags, dependent: :destroy, inverse_of: :tag
-    has_many :recipes, through: :recipe_ingredient_tags, inverse_of: :tags
+    has_many :recipe_ingredients, as: :mixable, dependent: :destroy, inverse_of: :mixable
+    has_many :recipes, through: :recipe_ingredients, inverse_of: :mixables
 
     validates :name, presence: true, uniqueness: true
 
@@ -15,4 +15,3 @@ class Tag < ApplicationRecord
         name.downcase!
     end
 end
-# ingredient >-> ingredient_tag <-< tag >-> recipe_ingredient_tag <-< recipe

@@ -1,13 +1,12 @@
-class RecipeIngredientTag < ApplicationRecord
-    belongs_to :recipe, inverse_of: :recipe_ingredient_tags
-    belongs_to :tag, inverse_of: :recipe_ingredient_tags
+class RecipeIngredient < ApplicationRecord
+    belongs_to :recipe, inverse_of: :recipe_ingredients
+    belongs_to :mixable, polymorphic: true, inverse_of: :recipe_ingredients
 
     validates :recipe_id, presence: true
-    validates :tag_id, presence: true
-    validates :amount, presence: true
-    validates :units, presence: true
+    validates :mixable_type, presence: true
+    validates :mixable_id, presence: true
 
-    enum units: { 
+    enum units: {
         part: 0,
         ounce: 1,
         centiliter: 2,
@@ -25,6 +24,8 @@ class RecipeIngredientTag < ApplicationRecord
     # Returns the units abbreviation if there is one
     def units_abbreviation
         case units
+        when nil
+            ''
         when /^ounce$/
             'oz'
         when /^centiliter$/
@@ -52,6 +53,7 @@ class RecipeIngredientTag < ApplicationRecord
 
     # Returns the custom unit or the full unit name
     def units_label
+        return '' if units.nil?
         return custom_unit.pluralize(amount) if units =~ /^custom$/
 
         units.pluralize(amount)

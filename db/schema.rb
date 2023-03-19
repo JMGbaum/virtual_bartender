@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_15_223633) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_19_152919) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -69,16 +69,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_15_223633) do
     t.json "metadata"
   end
 
-  create_table "recipe_ingredient_tags", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "recipe_ingredients", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "tag_id", null: false
     t.bigint "recipe_id", null: false
-    t.decimal "amount", precision: 5, scale: 2, null: false
-    t.integer "units", default: 0, null: false
+    t.decimal "amount", precision: 5, scale: 2
+    t.integer "units"
     t.string "custom_unit"
-    t.index ["recipe_id"], name: "index_recipe_ingredient_tags_on_recipe_id"
-    t.index ["tag_id"], name: "index_recipe_ingredient_tags_on_tag_id"
+    t.string "mixable_type", null: false
+    t.bigint "mixable_id", null: false
+    t.index ["mixable_type", "mixable_id"], name: "index_recipe_ingredients_on_mixable"
+    t.index ["recipe_id"], name: "index_recipe_ingredients_on_recipe_id"
   end
 
   create_table "recipes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -91,6 +92,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_15_223633) do
     t.text "description"
     t.text "instructions"
     t.string "source"
+    t.string "category"
     t.index ["author_id"], name: "index_recipes_on_author_id"
   end
 
