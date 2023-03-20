@@ -15,8 +15,9 @@
       <%= f.email_field :email, class: 'form-control' %>
 
     <%# turn into a drop down if possible %>
+      
       <%= f.label :country %> 
-      <%= f.text_field :country, class: 'form-control' %>
+      <%= f.select :country, options_for_select(ISO3166::Country.all_names_with_codes), {}, class: 'form-select' %>
 
       <%= f.label :birthday %>
       <%= f.date_field :birthday, class: 'form-control' %>
@@ -29,5 +30,7 @@
 
       <%= f.submit "Create my account", class: "btn btn-primary" %>
     <% end %>
+
+
   </div>
 </div>
