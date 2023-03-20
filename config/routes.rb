@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'sessions/new'
   # get "/ingredients", to:'ingredients#new'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -7,9 +8,10 @@ Rails.application.routes.draw do
   get "static_pages/home"
   root "static_pages#home"
 
-  get  "/login", to: "static_pages#login"
   get '/signup', to: 'users#new'
-  # post '/signup', to: 'users#create'
+  get    "/login",   to: "sessions#new"
+  post   "/login",   to: "sessions#create"
+  delete "/logout",  to: "sessions#destroy"
 
 
   # post  "/inventory_item", to: "ingredient_items#create"
