@@ -1,0 +1,20 @@
+<span>
+    <strong><%= recipe_ingredient.mixable.name.titleize %></strong>
+    <% if recipe_ingredient.note.present? %>
+        <span>(<%= recipe_ingredient.note %>)</span>
+    <% end %>
+    <span class="text-secondary">
+        <% if recipe_ingredient.amount.nil? && recipe_ingredient.units.nil? %>
+            to taste
+        <% else %>
+            <%= recipe_ingredient.amount %>
+            <% if recipe_ingredient.custom_units? %>
+                <%= recipe_ingredient.units_label %>
+            <% elsif recipe_ingredient.units.present? %>
+                <abbr title="<%= recipe_ingredient.units_label %>">
+                    <%= recipe_ingredient.units_abbreviation %>
+                </abbr>
+            <% end %>
+        <% end %>
+    </span>
+</span>

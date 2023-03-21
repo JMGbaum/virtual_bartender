@@ -11,15 +11,13 @@
             <div class="card">
                 <% if recipe.image.attached? %>
                     <%= image_tag(recipe.image, class: 'card-img-top') %>
-                <% else %>
-                    <%= image_tag('https://via.placeholder.com/1500/', class: 'card-img-top') %>
                 <% end %>
 
                 <div class="card-body">
                     <h5 class="card-title"><%= recipe.title %></h5>
 
                     <% if recipe.description? %>
-                        <p class="card-text"><%= recipe.description.truncate(50, separator: /\s/) %></p>
+                        <p class="card-text"><%= recipe.description.truncate(80, separator: /\s/) %></p>
                     <% end %>
 
                     <%= link_to('View Recipe', recipe, class: 'btn btn-primary') %>

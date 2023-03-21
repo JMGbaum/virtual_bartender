@@ -19,7 +19,13 @@ class RecipeIngredient < ApplicationRecord
         quart: 9,
         gallon: 10,
         custom: 11,
-    }
+    }, _suffix: true
+
+    def amount_label
+        return 'to taste' if amount.nil? && units.nil?
+
+        "#{amount} #{units_abbreviation}"
+    end
 
     # Returns the units abbreviation if there is one
     def units_abbreviation
@@ -45,7 +51,7 @@ class RecipeIngredient < ApplicationRecord
         when /^gallon$/
             'gal'.pluralize(amount)
         when /^custom$/
-            custom_unit.pluralize(amount)
+            amount.nil? ? custom_unit : custom_unit.pluralize(amount)
         else
             units.pluralize(amount)
         end
@@ -54,7 +60,7 @@ class RecipeIngredient < ApplicationRecord
     # Returns the custom unit or the full unit name
     def units_label
         return '' if units.nil?
-        return custom_unit.pluralize(amount) if units =~ /^custom$/
+        return amount.nil? ? custom_unit : custom_unit.pluralize(amount) if custom_units?
 
         units.pluralize(amount)
     end
