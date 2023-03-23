@@ -1,17 +1,17 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  first_name: MyString
-  email: MyString
-  last_name: MyString
-  birthday: 2023-03-09
-  country: MyString
-  password: MyString
+steve:
+  first_name: fratboy
+  email: fratboysteve@m.edu
+  last_name: steve
+  birthday: 2001-03-09
+  country: USA
+  password_digest: <%= User.digest('password') %>
 
-two:
-  first_name: MyString
-  email: MyString
-  last_name: MyString
-  birthday: 2023-03-09
-  country: MyString
-  password: MyString
+# two:
+#   first_name: MyString
+#   email: MyString
+#   last_name: MyString
+#   birthday: 2023-03-09
+#   country: MyString
+#   password: MyString
