@@ -29,6 +29,11 @@ gem "jbuilder"
 
 gem 'bootstrap', '~> 5.2', '>= 5.2.3'
 
+# for password digest
+gem "bcrypt",          "3.1.18"
+
+gem 'rails-controller-testing'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 
@@ -79,3 +84,5 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
+gem 'country_select', '~> 8.0'
