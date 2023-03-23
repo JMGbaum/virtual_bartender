@@ -1,8 +1,6 @@
 <div class="card">
     <% if @recipe.image.attached? %>
         <%= image_tag(@recipe.image, class: 'card-img-top', style: 'max-height: 200px; object-fit: cover;') %>
-    <% else %>
-        <%= image_tag('https://via.placeholder.com/1500/', class: 'card-img-top', style: 'max-height: 200px; object-fit: cover;') %>
     <% end %>
 
     <div class="card-body">
@@ -26,10 +24,7 @@
             <ul id="ingredients">
                 <% @recipe.recipe_ingredients.each do |ri| %>
                     <li>
-                        <span>
-                            <strong><%= ri.ingredient.name %></strong>
-                            <span class="text-secondary"><%= ri.amount %> <abbr title="<%= ri.units_label %>"><%= ri.units_abbreviation %></abbr></span>
-                        </span>
+                        <%= render(partial: 'shared/recipe_ingredient', locals: { recipe_ingredient: ri }) %>
                     </li>
                 <% end %>
             </ul>
@@ -45,7 +40,7 @@
 
     <% if @recipe.source? %>
         <div class="card-footer text-muted">
-            <small>Recipe from <%= link_to(@recipe.source) %></small>
+            <small>Recipe from <%= link_to(@recipe.source, @recipe.source, target: :_blank) %></small>
         </div>
     <% end %>
 </div>

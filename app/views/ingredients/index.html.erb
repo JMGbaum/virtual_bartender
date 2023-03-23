@@ -1,32 +1,41 @@
 <h1>All Ingredients</h1>
 
-<div class="card-group">
-<% @ingredients.each do |ingredient| %>
-    <ul>
-        <div class="card border-dark mb-3" style="max-width: 18rem;">
-            <div class="card-body">
-                <%# <img src="..." class="card-img-top" alt="..."> %>
-                <h5 class="card-header"><%=ingredient.name%></h5>
-                 <div class="card-body">
-                    <p class="card-text">Hey now, you're an all-star, get your game on, go play.
-Hey now, you're a rock star, get the show on, get paid</p>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Type: <%=ingredient.type%></li>
-                        <li class="list-group-item">Is Alcoholic: <%=ingredient.is_alcoholic%></li>
-                        <li class="list-group-item">Vintage: <%=ingredient.vintage%></li>
-                        <li class="list-group-item">Size: <%=ingredient.size%></li>
-                    </ul>
-                     <%= form_tag(inventory_items_path) do -%>
-                        <%=hidden_field_tag "id", ingredient.id%>
-                        <%=submit_tag 'Add', class: "btn btn-primary"%>
+<div class="row">
+    <div class="card-group">
+        <% @ingredients.each do |ingredient| %>
+            <ul>
+                <div class="card border-dark mb-3" style="max-width: 18rem;">
+                    <div class="card-body">
+                        <%# <img src="..." class="card-img-top" alt="..."> %>
+                        <h5 class="card-header"><%=ingredient.name%></h5>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Type: <%=ingredient.category%></li>
+                                <li class="list-group-item">ABV: <%= "#{ingredient.abv}%" %></li>
+                                <% if ingredient.vintage? %>
+                                    <li class="list-group-item">Vintage: <%=ingredient.vintage%></li>
+                                <% end %>
+                                <li class="list-group-item">Size: <%=ingredient.size%></li>
+                            </ul>
+                            <%= form_tag(inventory_items_path) do -%>
+                                <%=hidden_field_tag "id", ingredient.id%>
+                                <%=submit_tag 'Add', class: "btn btn-primary"%>
 
-                    <%end-%>
-                     
-                <div>
-            <div>
-        <div>
-    </ul>
-<% end %>
-<div>
+                            <%end-%>
+                            
+                        </div>
+                        <div class="card-footer small">
+                            <% ingredient.tags.each do |tag| %>
+                                <span class="badge rounded-pill bg-dark"><%= tag.name %></span>
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
+            </ul>
+        <% end %>
+    </div>
+</div>
+
+<%= render partial: 'shared/pagy_nav' %>
 
 

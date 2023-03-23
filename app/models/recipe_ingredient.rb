@@ -1,13 +1,12 @@
 class RecipeIngredient < ApplicationRecord
     belongs_to :recipe, inverse_of: :recipe_ingredients
-    belongs_to :ingredient, inverse_of: :recipe_ingredients
+    belongs_to :mixable, polymorphic: true, inverse_of: :recipe_ingredients
 
     validates :recipe_id, presence: true
-    validates :ingredient_id, presence: true
-    validates :amount, presence: true
-    validates :units, presence: true
+    validates :mixable_type, presence: true
+    validates :mixable_id, presence: true
 
-    enum units: { 
+    enum units: {
         part: 0,
         ounce: 1,
         centiliter: 2,
@@ -20,11 +19,19 @@ class RecipeIngredient < ApplicationRecord
         quart: 9,
         gallon: 10,
         custom: 11,
-    }
+    }, _suffix: true
+
+    def amount_label
+        return 'to taste' if amount.nil? && units.nil?
+
+        "#{amount} #{units_abbreviation}"
+    end
 
     # Returns the units abbreviation if there is one
     def units_abbreviation
         case units
+        when nil
+            ''
         when /^ounce$/
             'oz'
         when /^centiliter$/
@@ -44,7 +51,7 @@ class RecipeIngredient < ApplicationRecord
         when /^gallon$/
             'gal'.pluralize(amount)
         when /^custom$/
-            custom_unit.pluralize(amount)
+            amount.nil? ? custom_unit : custom_unit.pluralize(amount)
         else
             units.pluralize(amount)
         end
@@ -52,7 +59,8 @@ class RecipeIngredient < ApplicationRecord
 
     # Returns the custom unit or the full unit name
     def units_label
-        return custom_unit.pluralize(amount) if units =~ /^custom$/
+        return '' if units.nil?
+        return amount.nil? ? custom_unit : custom_unit.pluralize(amount) if custom_units?
 
         units.pluralize(amount)
     end
