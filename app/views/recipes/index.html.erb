@@ -21,6 +21,11 @@
                     <% end %>
 
                     <%= link_to('View Recipe', recipe, class: 'btn btn-primary') %>
+
+                    <%= form_tag(librarys_path) do -%>
+                        <%=hidden_field_tag "id", recipe.id%>
+                        <%=submit_tag 'Add to Library', class: "btn btn-outline-primary"%>
+                    <%end-%>
                 </div>
             </div>
         </div>
