@@ -20,9 +20,11 @@
                         <p class="card-text"><%= recipe.description.truncate(80, separator: /\s/) %></p>
                     <% end %>
 
-                    <%= link_to('View Recipe', recipe, class: 'btn btn-primary') %>
+                    <%= link_to('View Recipe', recipe, class: 'btn btn-primary stretched-link') %>
                 </div>
             </div>
         </div>
     <% end %>
 </div>
+
+<%= render(partial: 'shared/pagy_nav') %>
