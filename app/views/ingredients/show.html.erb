@@ -1,3 +1,50 @@
-<h1>
-  <%= @ingredient.name %>
-</h1>
+<div class="card">
+  <% if @ingredient.image.attached? %>
+    <%= image_tag(@ingredient.image, class: 'card-img-top', style: 'max-height: 200px; object-fit: cover;') %>
+  <% end %>
+
+  <div class="card-body">
+    <h1 class="card-title"><%= @ingredient.name %></h1>
+
+    <% if @ingredient.size.present? %>
+      <h6 class="card-subtitle text-muted"><%= @ingredient.size %></h6>
+    <% end %>
+
+    <% if @ingredient.purchase_url? %>
+      <%= link_to('Purchase', @ingredient.purchase_url, class: 'btn btn-primary') %>
+    <% end %>
+  </div>
+  <ul class="list-group list-group-flush">
+    <% if @ingredient.category.present? %>
+      <li class="list-group-item"><strong>Type:</strong> <%= @ingredient.category.titleize %></li>
+    <% end %>
+    
+    <% if @ingredient.abv? %>
+      <li class="list-group-item"><strong>ABV:</strong> <%= @ingredient.abv %>%</li>
+    <% end %>
+
+    <% if @ingredient.vintage? %>
+      <li class="list-group-item"><strong>Vintage:</strong> <%= @ingredient.vintage %></li>
+    <% end %>
+
+    <% if @ingredient.metadata? %>
+      <% @ingredient.metadata.each do |key, value| %>
+        <li class="list-group-item">
+          <strong><%= key.titleize %>:</strong>
+          <% if key =~ /^kosher$|^ethical$|^organic$/i %>
+            <%= ActiveModel::Type::Boolean.new.cast(value) %>
+          <% elsif key =~ /price/i %>
+            $<%= value %>
+          <% else %>
+            <%= value %>
+          <% end %>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+  <div class="card-footer small">
+      <% @ingredient.tags.each do |tag| %>
+        <%= link_to(tag.name, tag, class: 'badge rounded-pill bg-dark text-white') %>
+      <% end %>
+  </div>
+</div>
