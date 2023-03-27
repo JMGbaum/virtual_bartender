@@ -1,5 +1,7 @@
 <h1><%= @tag.name.titleize %></h1>
 
+<%= render(partial: 'shared/basic_search', locals: { placeholder: "Search #{@tag.name} ingredients" }) %>
+
 <%= render(partial: 'ingredients/list') %>
 
 <%= render(partial: 'shared/pagy_nav') %>
