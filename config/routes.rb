@@ -21,5 +21,6 @@ Rails.application.routes.draw do
   resources :ingredients, only: %i[index show]
   resources :recipes, only: %i[index show]
   resources :users
+  resources :tags, only: %i[show]
   
 end

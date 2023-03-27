@@ -1,5 +1,5 @@
 <span>
-    <strong><%= recipe_ingredient.mixable.name.titleize %></strong>
+    <strong><%= link_to(recipe_ingredient.mixable.name.titleize, recipe_ingredient.mixable, class: 'link-dark') %></strong>
     <% if recipe_ingredient.note.present? %>
         <span>(<%= recipe_ingredient.note %>)</span>
     <% end %>
