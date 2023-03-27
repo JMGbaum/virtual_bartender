@@ -1,0 +1,10 @@
+<% if @recipes.count.zero?%>
+    <h1>No Recipes Here</h1>
+<%else%>
+    <% @recipes.each do |r|%>
+        <div>
+       <h1> <%= r.title%> </h1>
+        </div>
+    <%end%>
+<%end%>
+
