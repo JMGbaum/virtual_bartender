@@ -31,7 +31,7 @@
                         <%= link_to('Liked Recipes', user_recipes_path, class: "nav-link#{' active' if controller_name == 'user_recipes'}", aria_current: controller_name == 'user_recipes' ? 'page' : false) %>
                     </li>
                     <li class="nav-item">
-                        <%= link_to('Inventory', inventory_items_path, class: "nav-link#{' active' if controller_name == 'ingredient_items'}", aria_current: controller_name == 'ingredient_items' ? 'page' : false) %>
+                        <%= link_to('Inventory', ingredient_items_path, class: "nav-link#{' active' if controller_name == 'ingredient_items'}", aria_current: controller_name == 'ingredient_items' ? 'page' : false) %>
                     </li>
                     <li class="nav-item">
                         <%= link_to('My Profile', '#', class: "nav-link#{' active' if controller_name == 'users'}", aria_current: controller_name == 'users' ? 'page' : false) %>
