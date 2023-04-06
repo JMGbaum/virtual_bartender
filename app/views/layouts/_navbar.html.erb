@@ -27,8 +27,8 @@
                     </li>
 
                     <% if logged_in? %>
-                    <li class="dropdown nav-link">
-                        <a href="#" id="account" class="dropdown-toggle">
+                    <li class="dropdown nav-item">
+                        <a href="#" id="account" class="nav-link dropdown-toggle">
                             Account <b class="caret"></b>
                         </a>
                         <ul id="dropdown-menu" class="dropdown-menu">
@@ -38,8 +38,6 @@
                             <%= link_to('Liked Recipes', user_recipes_path, aria_current: controller_name == 'user_recipes' ? 'page' : false) %>
                              <%= link_to('Inventory', ingredient_items_path, aria_current: controller_name == 'ingredient_items' ? 'page' : false) %>
                             </li>
-                           
-                        
                             <li>
                                 <%= link_to "Log out", logout_path,
                                                     data: { "turbo-method": :delete } %>
