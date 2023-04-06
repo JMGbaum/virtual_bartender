@@ -21,10 +21,24 @@ class RecipeIngredient < ApplicationRecord
         custom: 11,
     }, _suffix: true
 
+    def amount_as_mixed_number
+        parts = amount.to_r.divmod(1)
+        whole = parts[0].zero? ? '' : parts[0]
+        fraction = parts[1].zero? ? '' : fraction_symbol(parts[1])
+
+        "#{whole} #{fraction}".squish
+    end
+
     def amount_label
         return 'to taste' if amount.nil? && units.nil?
 
-        "#{amount} #{units_abbreviation}"
+        "#{amount_as_mixed_number} #{units_abbreviation}"
+    end
+
+    def pluralize_units(str)
+        return str if amount < 1
+        
+        str.pluralize(amount)
     end
 
     # Returns the units abbreviation if there is one
@@ -45,23 +59,23 @@ class RecipeIngredient < ApplicationRecord
         when /^tablespoon$/
             'tbsp'
         when /^pint$/
-            'pt'.pluralize(amount)
+            pluralize_units('pt')
         when /^quart$/
-            'qt'.pluralize(amount)
+            pluralize_units('qt')
         when /^gallon$/
-            'gal'.pluralize(amount)
+            pluralize_units('gal')
         when /^custom$/
-            amount.nil? ? custom_unit : custom_unit.pluralize(amount)
+            amount.nil? ? custom_unit : pluralize_units(custom_unit)
         else
-            units.pluralize(amount)
+            pluralize_units(units)
         end
     end
 
     # Returns the custom unit or the full unit name
     def units_label
         return '' if units.nil?
-        return amount.nil? ? custom_unit : custom_unit.pluralize(amount) if custom_units?
+        return amount.nil? ? custom_unit : pluralize_units(custom_unit) if custom_units?
 
-        units.pluralize(amount)
+        pluralize_units(units)
     end
 end
