@@ -3,6 +3,7 @@ import "@hotwired/turbo-rails"
 import "controllers"
 import "bootstrap"
 import "@popperjs/core"
+import "custom/menu"
 
 //= require jquery3
 //= require popper
