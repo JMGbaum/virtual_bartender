@@ -1,0 +1,32 @@
+@import "bootstrap";
+
+a.badge {
+    text-decoration: none;
+    display: inline-block;
+}
+
+a.badge::after {
+    content: '';
+    width: 0px;
+    height: 1px;
+    display: block;
+    transition: width 0.5s;
+
+    &.text-white {
+        background: var(--bs-white);
+    }
+
+    &.text-dark {
+        background: var(--bs-dark);
+    }
+}
+
+a.badge:hover::after {
+    width: 100%;
+}
+
+/* Class to escape stretched links */
+.clickable {
+    position: relative;
+    z-index: 2;
+}
