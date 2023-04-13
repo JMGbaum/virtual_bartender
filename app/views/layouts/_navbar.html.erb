@@ -27,14 +27,18 @@
                     </li>
 
                     <% if logged_in? %>
-                    <li class="nav-item">
-                        <%= link_to('Liked Recipes', user_recipes_path, class: "nav-link#{' active' if controller_name == 'user_recipes'}", aria_current: controller_name == 'user_recipes' ? 'page' : false) %>
-                    </li>
-                    <li class="nav-item">
-                        <%= link_to('Inventory', inventory_items_path, class: "nav-link#{' active' if controller_name == 'ingredient_items'}", aria_current: controller_name == 'ingredient_items' ? 'page' : false) %>
-                    </li>
-                    <li class="nav-item">
-                        <%= link_to('My Profile', '#', class: "nav-link#{' active' if controller_name == 'users'}", aria_current: controller_name == 'users' ? 'page' : false) %>
+                    <li class="nav-item dropdown">
+                        <a href="#" id="account" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Account <b class="caret"></b>
+                        </a>
+                        <ul id="dropdown-menu" class="dropdown-menu dropdown-menu-dark">
+                            <li><%= link_to "Profile", current_user, class: 'dropdown-item' %></li>
+                            <li><%= link_to "Settings", '#', class: 'dropdown-item' %></li>
+                            <li><%= link_to('Liked Recipes', user_recipes_path, aria_current: controller_name == 'user_recipes' ? 'page' : false, class: 'dropdown-item') %></li>
+                            <li><%= link_to('Inventory', ingredient_items_path, aria_current: controller_name == 'ingredient_items' ? 'page' : false, class: 'dropdown-item') %></li>
+                            <li><%= link_to "Log out", logout_path, class: 'dropdown-item', data: { "turbo-method": :delete } %></li>
+                        </ul>
+
                     </li>
                     
                     <% else %>
