@@ -1,0 +1,27 @@
+<% if @ingredients.count.zero?%>
+    <h1>Inventory Empty</h1>
+<%else%>
+    <h1>Inventory</h1>
+
+    <div id="results" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3 mt-1">
+        <% @ingredients.each do |ingredient| %>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= ingredient.name %></h5>
+
+
+                    <%= link_to('View Ingredient', ingredient, class: 'btn btn-primary stretched-link') %>
+                         <%= form_for(ingredient.ingredient_items.find_by(user: current_user), method: :delete) do -%>
+                                    <%=submit_tag 'Delete From Library', class: "btn btn-outline-danger clickable"%>
+                        <%end-%>
+
+
+                    </div>
+                </div>
+            </div>
+        <% end %>
+    </div>
+
+<%end%>
+

@@ -36,6 +36,8 @@ gem "bcrypt",          "3.1.18"
 
 gem 'rails-controller-testing'
 
+gem 'jquery-rails'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 

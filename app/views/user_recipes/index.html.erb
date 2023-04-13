@@ -1,10 +1,35 @@
 <% if @recipes.count.zero?%>
     <h1>No Recipes Here</h1>
 <%else%>
-    <% @recipes.each do |r|%>
-        <div>
-       <h1> <%= r.title%> </h1>
-        </div>
-    <%end%>
+    <h1> Liked Recipes</h1>
+
+    <div id="results" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3 mt-1">
+        <% @recipes.each do |recipe| %>
+            <div class="col">
+                <div class="card">
+                    <% if recipe.image.attached? %>
+                        <%= image_tag(recipe.image, class: 'card-img-top') %>
+                    <% end %>
+
+                    <div class="card-body">
+                        <h5 class="card-title"><%= recipe.title %></h5>
+
+                        <% if recipe.description? %>
+                            <p class="card-text"><%= recipe.description.truncate(80, separator: /\s/) %></p>
+                        <% end %>
+
+
+                    <%= link_to('View Recipe', recipe, class: 'btn btn-primary stretched-link') %>
+                        <%= form_for(recipe.user_recipes.find_by(user: current_user), method: :delete) do -%>
+                            <%=submit_tag 'Delete From Library', class: "btn btn-outline-danger clickable"%>
+                        <%end-%>
+
+
+                    </div>
+                </div>
+            </div>
+        <% end %>
+    </div>
+
 <%end%>
 

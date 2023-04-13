@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
 
   # post  "/inventory_item", to: "ingredient_items#create"
-  resources :ingredient_items, only: %i[create]
+  resources :ingredient_items, only: %i[create index destroy]
   resources :user_recipes, only: %i[create index destroy]
   
   resources :ingredients, only: %i[index show]
