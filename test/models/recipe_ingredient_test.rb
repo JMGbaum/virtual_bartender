@@ -4,7 +4,7 @@ class RecipeIngredientTest < ActiveSupport::TestCase
   setup do
     @recipe = Recipe.create(title: 'Aperol Spritz')
     @ingredient = Ingredient.create(name: 'Aperol', is_alcoholic: true)
-    @recipe_ingredient = RecipeIngredient.new(ingredient_id: @ingredient.id, recipe_id: @recipe.id, amount: 6, units: :centiliter)
+    @recipe_ingredient = RecipeIngredient.new(mixable: @ingredient, recipe: @recipe, amount: 6, units: :centiliter)
   end
 
   test "should be valid" do
@@ -16,19 +16,14 @@ class RecipeIngredientTest < ActiveSupport::TestCase
     assert_not @recipe_ingredient.valid?
   end
 
-  test "should not be valid without ingredient_id" do
-    @recipe_ingredient.ingredient_id = nil
+  test "should not be valid without mixable_id" do
+    @recipe_ingredient.mixable_id = nil
     assert_not @recipe_ingredient.valid?
   end
 
-  test "should not be valid without amount" do
-    @recipe_ingredient.amount = nil
-    assert_not @recipe_ingredient.valid?
-  end
-
-  test "should not be valid without units" do
+  test "#units_label should return an empty string if the units is nil" do
     @recipe_ingredient.units = nil
-    assert_not @recipe_ingredient.valid?
+    assert_equal @recipe_ingredient.units_label, ''
   end
 
   test "#units_label should return the pluralized version of the unit" do
@@ -39,6 +34,11 @@ class RecipeIngredientTest < ActiveSupport::TestCase
     @recipe_ingredient.units = :custom
     @recipe_ingredient.custom_unit = 'bottle'
     assert_equal @recipe_ingredient.units_label, 'bottles'
+  end
+
+  test '#units_abbreviation should return a blank string if the units is nil' do
+    @recipe_ingredient.units = nil
+    assert_equal @recipe_ingredient.units_abbreviation, ''
   end
 
   test '#units_abbreviation should return the unit abbreviation' do
@@ -63,5 +63,12 @@ class RecipeIngredientTest < ActiveSupport::TestCase
     count = RecipeIngredient.count
     @ingredient.destroy
     assert_equal RecipeIngredient.count, count - 1
+  end
+
+  test 'should incorporate polymorphism' do
+    @tag = Tag.create(name: 'test')
+    @recipe_ingredient.mixable = @tag
+    assert @recipe_ingredient.valid?
+    assert_equal @recipe_ingredient.mixable_type, 'Tag'
   end
 end

@@ -1,0 +1,57 @@
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3 mt-1">
+    <% @ingredients.each do |ingredient| %>
+        <div class="col">
+            <div class="card">
+                <% if ingredient.image.attached? %>
+                    <%= image_tag(ingredient.image, class: 'card-img-top') %>
+                <% end %>
+
+                <div class="card-body">
+                    <%# <img src="..." class="card-img-top" alt="..."> %>
+                    <h5 class="card-title"><%=ingredient.name%></h5>
+
+                    <% if ingredient.size.present? %>
+                        <h6 class="card-subtitle text-muted"><%= ingredient.size %></h6>
+                    <% end %>
+                </div>
+
+                <ul class="list-group list-group-flush">
+                    <% if ingredient.category.present? %>
+                        <li class="list-group-item"><strong>Type:</strong> <%= ingredient.category.titleize %></li>
+                    <% end %>
+                    <% if ingredient.abv? %>
+                        <li class="list-group-item"><strong>ABV:</strong> <%= "#{ingredient.abv}%" %></li>
+                    <% end %>
+                    <% if ingredient.vintage? %>
+                        <li class="list-group-item"><strong>Vintage:</strong> <%=ingredient.vintage%></li>
+                    <% end %>
+                </ul>
+
+                <div class="card-body">
+
+                    <%= link_to('View', ingredient, class: 'btn btn-primary stretched-link') %>
+                     <% if logged_in?%>
+                        <% if ingredient.users.exists? current_user.id%>
+                                <%= form_for(ingredient.ingredient_items.find_by(user: current_user), method: :delete) do -%>
+                                    <%=submit_tag 'Delete From Library', class: "btn btn-outline-danger clickable"%>
+                                <%end-%>
+                                <%else %>
+                                <%= form_tag(ingredient_items_path) do -%>
+                                    <%=hidden_field_tag "id", ingredient.id%>
+                                    <%=submit_tag 'Add to Library', class: "btn btn-outline-primary clickable"%>
+                                <%end-%>
+                            <%end%>
+                    <%end%>
+
+                    
+                </div>
+
+                <div class="card-footer small">
+                    <% ingredient.tags.each do |tag| %>
+                        <%= link_to(tag.name, tag, class: 'badge rounded-pill bg-dark text-white clickable') %>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    <% end %>
+</div>

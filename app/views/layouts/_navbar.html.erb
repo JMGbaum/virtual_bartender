@@ -18,19 +18,34 @@
                         <%= link_to('Home', root_url, class: "nav-link#{' active' if current_page?(root_path)}", aria_current: current_page?(root_path) ? 'page' : false) %>
                     </li>
 
-                    <%# TODO: Add link %>
                     <li class="nav-item">
-                        <%= link_to('Inventory', '#', class: 'nav-link') %>
+                        <%= link_to('Ingredients', ingredients_path, class: 'nav-link') %>
                     </li>
 
                     <li class="nav-item">
                         <%= link_to('Recipes', recipes_path, class: "nav-link#{' active' if controller_name == 'recipes'}", aria_current: controller_name == 'recipes' ? 'page' : false) %>
                     </li>
 
-                    <%# TODO: Add link %>
-                    <li class="nav-item">
-                        <%= link_to('My Profile', '#', class: "nav-link#{' active' if controller_name == 'users'}", aria_current: controller_name == 'users' ? 'page' : false) %>
+                    <% if logged_in? %>
+                    <li class="nav-item dropdown">
+                        <a href="#" id="account" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Account <b class="caret"></b>
+                        </a>
+                        <ul id="dropdown-menu" class="dropdown-menu dropdown-menu-dark">
+                            <li><%= link_to "Profile", current_user, class: 'dropdown-item' %></li>
+                            <li><%= link_to "Settings", '#', class: 'dropdown-item' %></li>
+                            <li><%= link_to('Liked Recipes', user_recipes_path, aria_current: controller_name == 'user_recipes' ? 'page' : false, class: 'dropdown-item') %></li>
+                            <li><%= link_to('Inventory', ingredient_items_path, aria_current: controller_name == 'ingredient_items' ? 'page' : false, class: 'dropdown-item') %></li>
+                            <li><%= link_to "Log out", logout_path, class: 'dropdown-item', data: { "turbo-method": :delete } %></li>
+                        </ul>
+
                     </li>
+                    
+                    <% else %>
+                     <%= link_to('Login', login_path, class: "nav-link#{' active' if current_page?(login_path) || current_page?(signup_path)}", aria_current: current_page?(login_path) || current_page?(signup_path) ? 'page' : false) %>
+                    
+                    <% end %>
+
                 </ul>
             </div>
         </div>
