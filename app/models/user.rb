@@ -19,4 +19,23 @@ class User < ApplicationRecord
                                                   BCrypt::Engine.cost
     BCrypt::Password.create(string, cost: cost)
   end
+
+  def decisiontrees
+    training_data = []
+    training_labels = []
+    Recipe.all.each do |recipe|
+      training_data << recipe.format_for_tree
+      training_labels << user_recipes.exists?(recipe_id: recipe.id) ? "1" : "0"
+    end
+    
+    # estimator = Rumale::Tree::DecisionTreeClassifier.new
+    # estimator.fit(training_data, training_labels)
+    # estimator.tree
+  
+    
+    
+
+
+
+  end 
 end

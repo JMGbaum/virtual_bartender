@@ -26,4 +26,8 @@ class Recipe < ApplicationRecord
 
         t.merge(it) { |k, v1, v2| v1 + v2 }
     end
+
+    def format_for_tree
+        [title, ingredients.pluck(:name).first, ingredient_tags.pluck(:name).first, tags.first]
+    end
 end

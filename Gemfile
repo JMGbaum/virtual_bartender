@@ -29,7 +29,7 @@ gem "jbuilder"
 
 gem 'bootstrap', '~> 5.2', '>= 5.2.3'
 
-gem 'jquery-rails'
+gem 'rumale', '~> 0.26.0'
 
 # for password digest
 gem "bcrypt",          "3.1.18"
