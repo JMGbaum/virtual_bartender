@@ -6,9 +6,24 @@ class Recipe < ApplicationRecord
     belongs_to :author, class_name: 'User', optional: true
 
     has_many :recipe_ingredients, dependent: :destroy, inverse_of: :recipe
-    has_many :mixables, through: :recipe_ingredients, inverse_of: :recipes
+    has_many :ingredients, through: :recipe_ingredients, source: :mixable, source_type: 'Ingredient', inverse_of: :recipes
+    has_many :ingredient_tags, through: :recipe_ingredients, source: :mixable, source_type: 'Tag', inverse_of: :recipes
 
     has_one_attached :image
 
     validates :title, presence: true
+
+    def tags
+        t = ingredients.joins(:tags).pluck('tags.name')
+        it = ingredient_tags.pluck(:name)
+
+        (t + it).uniq
+    end
+
+    def weighted_tags_histogram
+        t = ingredients.joins(:tags).group('tags.name').count
+        it = ingredient_tags.group(:name).count.transform_values { |v| v * 5 } # multiply by five for ingredient tags
+
+        t.merge(it) { |k, v1, v2| v1 + v2 }
+    end
 end
