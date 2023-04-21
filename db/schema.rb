@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_25_175450) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_21_180243) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -40,10 +40,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_25_175450) do
   end
 
   create_table "ingredient_items", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "ingredient_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.bigint "ingredient_id"
+    t.index ["ingredient_id"], name: "index_ingredient_items_on_ingredient_id"
+    t.index ["user_id", "ingredient_id"], name: "index_ingredient_items_on_user_id_and_ingredient_id", unique: true
+    t.index ["user_id"], name: "index_ingredient_items_on_user_id"
   end
 
   create_table "ingredient_tags", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -109,6 +112,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_25_175450) do
     t.bigint "recipe_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "liked", default: true, null: false
     t.index ["recipe_id"], name: "index_user_recipes_on_recipe_id"
     t.index ["user_id", "recipe_id"], name: "index_user_recipes_on_user_id_and_recipe_id", unique: true
     t.index ["user_id"], name: "index_user_recipes_on_user_id"
