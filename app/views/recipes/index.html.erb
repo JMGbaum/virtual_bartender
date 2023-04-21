@@ -20,16 +20,51 @@
 
                    <%= link_to('View Recipe', recipe, class: 'btn btn-primary stretched-link') %>
                      <% if logged_in?%>
-                        <% if recipe.users.exists? current_user.id%>
-                                <%= form_for(recipe.user_recipes.find_by(user: current_user), method: :delete) do -%>
-                                    <%=submit_tag 'Delete From Library', class: "btn btn-outline-danger clickable"%>
+                        <% if user_recipe = @user_recipes.find { |ur| ur.recipe_id == recipe.id }%>
+                            <% if user_recipe.liked? %>
+                                 <%= form_for(user_recipe, method: :delete, html: { style: 'display: inline-block;' }) do |f| %>
+                                    <%= button_tag type: 'submit', class: "btn btn-success clickable" do %>
+                                        <i class="fas fa-thumbs-up"></i>
+                                    <% end %> 
                                 <%end-%>
-                                <%else %>
-                                <%= form_tag(user_recipes_path) do -%>
+                                
+                                <%= form_for(user_recipe, html: { style: 'display: inline-block;' }) do |f| %>
+                                    <%= f.hidden_field :liked, value: 0 %>
+                                    <%= button_tag type: 'submit', class: "btn btn-outline-danger clickable" do %>
+                                        <i class="fa-regular fa-thumbs-down"></i>
+                                    <% end %> 
+                                <%end-%>
+                            <% else %>
+                                <%= form_for(user_recipe, html: { style: 'display: inline-block;' }) do |f| %>
+                                    <%= f.hidden_field :liked, value: 1 %>
+                                    <%= button_tag type: 'submit', class: "btn btn-outline-success clickable" do %>
+                                        <i class="fa-regular fa-thumbs-up"></i>
+                                    <% end %> 
+                                <%end-%>
+                                
+                                <%= form_for(user_recipe, method: :delete, html: { style: 'display: inline-block;' }) do |f| %>
+                                    <%= button_tag type: 'submit', class: "btn btn-danger clickable" do %>
+                                        <i class="fas fa-thumbs-down"></i>
+                                    <% end %> 
+                                <%end-%>
+                            <% end %>
+                        <%else %>
+                                <%= form_tag(user_recipes_path, style: 'display: inline-block;') do -%>
                                     <%=hidden_field_tag "id", recipe.id%>
-                                    <%=submit_tag 'Add to Library', class: "btn btn-outline-primary clickable"%>
+                                    <%=hidden_field_tag "liked", 1%>
+                                    <%= button_tag type: 'submit', class: "btn btn-outline-success clickable" do %>
+                                        <i class="fa-regular fa-thumbs-up"></i>
+                                    <% end %> 
                                 <%end-%>
-                            <%end%>
+
+                                <%= form_tag(user_recipes_path, style: 'display: inline-block;') do -%>
+                                    <%=hidden_field_tag "id", recipe.id%>
+                                    <%=hidden_field_tag "liked", 0%>
+                                    <%= button_tag type: 'submit', class: "btn btn-outline-danger clickable" do %>
+                                        <i class="fa-regular fa-thumbs-down"></i>
+                                    <% end %> 
+                                <%end-%>
+                        <%end%>
                     <%end%>
 
 
