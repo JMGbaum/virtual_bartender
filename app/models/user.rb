@@ -44,10 +44,12 @@ class User < ApplicationRecord
       tags.uniq
   end
 
-  def saved_recipe_tags_histogram
+  def recipe_tags_histogram(liked: true)
       tags = {}
 
-      recipes.each do |recipe|
+      ur = user_recipes.where(liked:).pluck(:recipe_id)
+      
+      recipes.where(id: liked).each do |recipe|
           tags.merge!(recipe.weighted_tags_histogram) { |_k, v1, v2| v1 + v2 }
       end
 
@@ -58,6 +60,7 @@ class User < ApplicationRecord
     @tree ||= generate_decision_tree
 
     @tree.predict(recipe.format_for_decision_tree(self))
+    @tree.graph("dT42123V1")
   end
 
   private

@@ -36,6 +36,8 @@ gem 'rails-controller-testing'
 
 gem 'jquery-rails'
 
+gem 'graphr'
+
 # FontAwesome icons
 gem "font-awesome-sass", "~> 6.4.0"
 

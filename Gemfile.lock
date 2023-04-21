@@ -109,6 +109,7 @@ GEM
       sassc (~> 2.0)
     globalid (1.0.1)
       activesupport (>= 5.0)
+    graphr (0.2.1)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     importmap-rails (1.1.5)
@@ -255,6 +256,7 @@ DEPENDENCIES
   decisiontree
   dotenv-rails
   font-awesome-sass (~> 6.4.0)
+  graphr
   importmap-rails
   jbuilder
   jquery-rails
