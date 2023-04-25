@@ -1,2 +1,13 @@
-<%= @user.first_name %>, <%= @user.email %>
-<h1>Hellow</h1>
+<div class="row">
+  <h1>
+    <%= @user.first_name %>
+  </h1>
+  <div class="col-md-8">
+    <% if @user.microposts.any? %>
+      <h3>Microposts (<%= @user.microposts.count %>)</h3>
+      <ol class="microposts">
+        <%= render @microposts %>
+      </ol>
+    <% end %>
+  </div>
+</div>

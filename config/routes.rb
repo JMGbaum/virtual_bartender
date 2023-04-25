@@ -20,7 +20,8 @@ Rails.application.routes.draw do
   
   resources :ingredients, only: %i[index show]
   resources :recipes, only: %i[index show]
-  resources :users
+  resources :users, only: %i[show]
   resources :tags, only: %i[show]
+  resources :microposts,          only: [:create, :destroy]
   
 end

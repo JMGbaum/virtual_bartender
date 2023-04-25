@@ -3,6 +3,16 @@
 <%= render(partial: 'shared/basic_search') %>
 
 <div id="results" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3 mt-1">
+    <% if logged_in? %>
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Enter Recipe</h5>
+                    <%= render 'shared/micropost_form' %>
+                </div>
+            </div>
+        </div>
+    <% end %>
     <% @recipes.each do |recipe| %>
         <div class="col">
             <div class="card">
