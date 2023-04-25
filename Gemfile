@@ -41,6 +41,8 @@ gem "font-awesome-sass", "~> 6.4.0"
 
 gem 'decisiontree'
 
+gem 'graphr'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 
