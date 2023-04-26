@@ -37,7 +37,7 @@ class User < ApplicationRecord
   def saved_recipe_tags(liked: true)
       tags = []
 
-      recipes.joins(:user_recipes).where('user_recipes.liked' => liked).each do |recipe|
+      recipes.where('user_recipes.liked' => liked).each do |recipe|
           tags.concat(recipe.tags)
       end
 
@@ -47,7 +47,7 @@ class User < ApplicationRecord
   def saved_recipe_tags_histogram(liked: true)
       tags = {}
 
-      recipes.joins(:user_recipes).where('user_recipes.liked' => liked).each do |recipe|
+      recipes.where('user_recipes.liked' => liked).each do |recipe|
           tags.merge!(recipe.weighted_tags_histogram) { |_k, v1, v2| v1 + v2 }
       end
 
