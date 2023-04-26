@@ -29,6 +29,6 @@ class Recipe < ApplicationRecord
 
     def format_for_decision_tree(user)
         t = weighted_tags_histogram.sort_by { |_k, v| v }
-        [user.compare_to_liked_recipes(self), t[-1]&.at(0), t[-2]&.at(0), t[-3]&.at(0), t[2]&.at(0), t[1]&.at(0), t[0]&.at(0)]
+        [user.compare_to_saved_recipes(self), user.compare_to_saved_recipes(self, liked: false), t[-1]&.at(0), t[-2]&.at(0), t[-3]&.at(0), t[2]&.at(0), t[1]&.at(0), t[0]&.at(0)]
     end
 end
