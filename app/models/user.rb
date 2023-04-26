@@ -63,15 +63,14 @@ class User < ApplicationRecord
   private
 
   def generate_decision_tree
-    labels = ['similarity_liked', 'similarity_disliked', 'top_tag', 'second_tag', 'third_tag', 'bottom_tag3', 'bottom_tag2', 'bottom_tag']
+    labels = ['similarity_liked', 'similarity_disliked']
 
     training = user_recipes.map do |ur|
       recipe = ur.recipe
-      tags = recipe.weighted_tags_histogram.sort_by { |_k, v| v }
-      [compare_to_saved_recipes(recipe), compare_to_saved_recipes(recipe, liked: false), tags[-1]&.at(0), tags[-2]&.at(0), tags[-3]&.at(0), tags[2]&.at(0), tags[1]&.at(0), tags[0]&.at(0), ur.liked? ? 'recommended' : 'not recommended']
+      [compare_to_saved_recipes(recipe), compare_to_saved_recipes(recipe, liked: false), ur.liked? ? 'recommended' : 'not recommended']
     end
 
-    tree = DecisionTree::ID3Tree.new(labels, training, 'not recommended', similarity_liked: :continuous, similarity_disliked: :continuous, top_tag: :discrete, second_tag: :discrete, third_tag: :discrete, bottom_tag3: :discrete, bottom_tag2: :discrete, bottom_tag: :discrete)
+    tree = DecisionTree::ID3Tree.new(labels, training, 'not recommended', similarity_liked: :continuous, similarity_disliked: :continuous)
     tree.train
 
     tree
