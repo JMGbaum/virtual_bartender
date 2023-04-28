@@ -1,4 +1,109 @@
 <div class="center-block">
-<h1>VirtualBartender</h1>
-<%= image_tag ("red-solo-cup.jpeg") %>
+    <h1 class="text-center"><i class="fa-solid fa-beer-mug-empty"></i> Virtual Bartender <i class="fa-solid fa-beer-mug-empty"></i></h1>
+    <% if logged_in?%>
+        <% if current_user.user_recipes.count.zero?%>
+            <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+            <div class="carousel-inner ">
+                <div class="carousel-item active ">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h5>Check Out Ingredients</h5>
+                                <p> Add ingredients to your Inventory</p>
+                                <%= link_to('Ingredients', ingredients_path, class: "btn btn-primary" ) %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h5>Check Out Recipes</h5>
+                            <p> Like or dislike recipes and they'll show up in your Tried Recipes</p>
+                            <%= link_to('Recipes', recipes_path, class: "btn btn-primary" ) %>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h5>Inventory </h5>
+                            <p> Here are the ingredients in your Inventory</p>
+                            <%= link_to('Inventory', ingredient_items_path, class: "btn btn-primary" ) %>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h5>Tried Recipes</h5>
+                            <p> Here are the recipes you've tried</p>
+                            <%= link_to('Tried Recipes', user_recipes_path, class: "btn btn-primary" ) %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+        <%else%>
+           <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                <% current_user.user_recipes.each do |user_recipe| %>
+                <% recipe = user_recipe.recipe %>
+                    <div class="carousel-item active">
+                        <div class="card">
+                            <% if recipe.image.attached? %>
+                                <%= image_tag(recipe.image, class: 'card-img-top') %>
+                            <% end %>
+
+                            <div class="card-body text-center">
+                                <h5 class="card-title"> Tried Recipe: <%=recipe.title %></h5>
+
+                                <% if recipe.description? %>
+                                    <p class="card-text"><%= recipe.description.truncate(80, separator: /\s/) %></p>
+                                <% end %>
+                            </div>
+                        </div>
+                    </div>
+                <%end%>
+                </div>
+                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+
+        <%end%>
+    
+    <%else%>
+        <div class="text-center">
+            <div class="align-circles">
+                <div class="circle" id="circle1">
+                    <h5>Try a new drink</h5>
+                </div>
+                <div class="circle" id="circle2">
+                    <h5>Track your inventory</h5>
+                </div>
+                <div class="circle" id="circle3">
+                    <h5>Get recommendations</h5>
+                </div>
+            </div>
+            <%= link_to "Login", login_path, class: "btn btn-primary text-center" %>
+        </div>
+       
+         
+    <% end %>
+
 </div>
