@@ -1,7 +1,7 @@
 <div class="center-block">
     <h1 class="text-center"><i class="fa-solid fa-beer-mug-empty"></i> Virtual Bartender <i class="fa-solid fa-beer-mug-empty"></i></h1>
     <% if logged_in?%>
-        <% if current_user.user_recipes.count.zero?%>
+        <% if current_user.user_recipes.count.zero? || @recommendation.count.zero?%>
             <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
             <div class="carousel-inner ">
                 <div class="carousel-item active ">
@@ -54,25 +54,27 @@
         </div>
 
         <%else%>
-           <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                <% current_user.user_recipes.each do |user_recipe| %>
-                <% recipe = user_recipe.recipe %>
-                    <div class="carousel-item active">
-                        <div class="card">
-                            <% if recipe.image.attached? %>
-                                <%= image_tag(recipe.image, class: 'card-img-top') %>
-                            <% end %>
+        <% @recommendation.each do |recipe|%>
+            <h1><%=recipe.title%> </h1>
+        <%end%>
+         <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <% @recommendation.each do |recipe|%>
+                        <div class="carousel-item active">
+                                <div class="card">
+                                    <% if recipe.image.attached? %>
+                                        <%= image_tag(recipe.image, class: 'card-img-top') %>
+                                    <% end %>
 
-                            <div class="card-body text-center">
-                                <h5 class="card-title"> Tried Recipe: <%=recipe.title %></h5>
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title"> Recommended Recipe: <%=recipe.title %></h5>
 
-                                <% if recipe.description? %>
-                                    <p class="card-text"><%= recipe.description.truncate(80, separator: /\s/) %></p>
-                                <% end %>
+                                        <% if recipe.description? %>
+                                            <p class="card-text"><%= recipe.description.truncate(80, separator: /\s/) %></p>
+                                        <% end %>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
                 <%end%>
                 </div>
                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
