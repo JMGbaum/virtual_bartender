@@ -76,6 +76,7 @@ class RecipeIngredient < ApplicationRecord
     private
 
     def pluralize_units(str)
+        return '' if amount.nil?
         return str if amount < 1
         
         str.pluralize(amount)

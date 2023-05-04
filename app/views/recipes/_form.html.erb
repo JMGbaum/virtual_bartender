@@ -1,0 +1,44 @@
+<%= form_for(@recipe) do |f| %>
+    <div class="mb-3">
+        <%= f.label(:title, required: true, class: 'form-label') %>
+        <%= f.text_field(:title, required: true, class: 'form-control') %>
+    </div>
+    <div class="mb-3">
+        <%= f.label(:source, class: 'form-label') %>
+        <%= f.url_field(:source, class: 'form-control') %>
+    </div>
+    <div class="row mb-3">
+        <div class="col-6">
+            <%= f.label(:image, class: 'form-label') %>
+            <%= f.file_field(:image, class: 'form-control') %>
+        </div>
+        <div class="col-6">
+            <%= f.label(:category, class: 'form-label') %>
+            <%= f.select(:category, [['Cocktail', 'cocktail'], ['Shot', 'shot'], ['Other', 'other']], {}, class: 'form-select') %>
+        </div>
+    </div>
+    <div class="mb-3">
+        
+    </div>
+    <div class="mb-3">
+        <%= f.label(:servings, class: 'form-label') %>
+        <%= f.number_field(:servings, class: 'form-control') %>
+    </div>
+    <div class="mb-3">
+        <%= f.label(:glass, class: 'form-label') %>
+        <%= f.text_field(:glass, class: 'form-control') %>
+    </div>
+    <div class="mb-3">
+        <%= f.label(:description, class: 'form-label') %>
+        <%= f.text_area(:description, class: 'form-control') %>
+    </div>
+    <div class="mb-3">
+        <%= f.label(:instructions, class: 'form-label') %>
+        <%= f.text_area(:instructions, class: 'form-control') %>
+    </div>
+    <%= link_to('Cancel', @recipe.new_record? ? recipes_path : recipe_path(@recipe), class: 'btn btn-secondary') %>
+    <%= f.submit('Save & Add Ingredients', class: 'btn btn-primary') %>
+    <% if @recipe.persisted? %>
+        <%= link_to('Delete', recipe_path(@recipe), method: :delete, class: 'btn btn-danger float-end', data: { confirm: 'Are you sure you want to delete this recipe?' }) %>
+    <% end %>
+<% end %>

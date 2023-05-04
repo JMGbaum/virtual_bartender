@@ -1,4 +1,14 @@
-<h1>Recipes</h1>
+<div class="row">
+    <div class="col-8">
+        <h1>Recipes</h1>
+    </div>
+    <div class="col-4">
+        <%= link_to(new_recipe_path, class: 'btn btn-primary float-end') do %>
+            <i class="fas fa-circle-plus"></i>
+            Create Recipe
+        <% end %>
+    </div>
+</div>
 
 <%= render(partial: 'shared/basic_search') %>
 

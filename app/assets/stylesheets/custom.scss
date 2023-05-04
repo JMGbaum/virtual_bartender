@@ -59,3 +59,8 @@ a.badge:hover::after {
 #circle3{
     background-color: #FE4A49;
 }
+
+label[required]::after {
+    content: "*";
+    color: red;
+}

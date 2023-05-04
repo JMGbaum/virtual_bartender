@@ -19,7 +19,9 @@ Rails.application.routes.draw do
   resources :user_recipes, only: %i[create index destroy update]
   
   resources :ingredients, only: %i[index show]
-  resources :recipes, only: %i[index show]
+  resources :recipes do
+    resources :ingredients, controller: 'recipe_ingredients'
+  end
   resources :users
   resources :tags, only: %i[show]
   
