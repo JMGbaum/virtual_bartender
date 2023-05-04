@@ -12,6 +12,7 @@ class Recipe < ApplicationRecord
     has_one_attached :image
 
     validates :title, presence: true
+    validates :source, format: { with: /\A#{URI.regexp}\z/, message: 'Must be a valid URL' }, allow_nil: true, allow_blank: true
 
     def tags
         t = ingredients.joins(:tags).pluck('tags.name')
@@ -29,5 +30,11 @@ class Recipe < ApplicationRecord
 
     def format_for_decision_tree(user)
         [user.compare_to_saved_recipes(self), user.compare_to_saved_recipes(self, liked: false)]
+    end
+
+    private
+
+    def clean
+        source = nil if !source.nil? && source.blank?
     end
 end

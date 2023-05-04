@@ -4,7 +4,12 @@
     <% end %>
 
     <div class="card-body">
-        <h1 class="card-title"><%= @recipe.title %></h1>
+        <h1 class="card-title">
+            <%= @recipe.title %>
+            <% if logged_in? && @recipe.author_id == current_user.id %>
+                <%= link_to('Edit', edit_recipe_path(@recipe), class: 'btn btn-outline-secondary') %>
+            <% end %>
+        </h1>
         <% if @recipe.author_id? %>
             <h6 class="text-muted">Submitted by <%= link_to(@recipe.author.first_name, @recipe.author) %></h6>
         <% end %>
