@@ -10,7 +10,7 @@ class RecipeIngredientsController < ApplicationController
     def new
         @recipe_ingredient = RecipeIngredient.new
         @pagy, @results = pagy(params[:search].present? && params[:type].present? ? Object.const_get(params[:type]).where("name LIKE ?", "%#{params[:search]}%")
-            .where.not(id: params[:type] == 'Tag' ? @recipe.ingredient_tags.ids : @recipe.ingredients.ids) : [])
+            .where.not(id: params[:type] == 'Tag' ? @recipe.ingredient_tags.ids : @recipe.ingredients.ids) : RecipeIngredient.none)
     end
 
     def create
