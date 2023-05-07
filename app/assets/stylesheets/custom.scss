@@ -30,3 +30,37 @@ a.badge:hover::after {
     position: relative;
     z-index: 2;
 }
+
+.align-circles{
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+}
+
+.circle{
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    width: 200px;
+    border-radius: 100%;
+    text-align: center;
+    display:flex;
+    margin: 20px;
+}
+
+#circle1{
+    background-color: #FED766;
+}
+
+#circle2{
+    background-color: #2AB7CA;
+}
+
+#circle3{
+    background-color: #FE4A49;
+}
+
+label[required]::after {
+    content: "*";
+    color: red;
+}

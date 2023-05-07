@@ -1,0 +1,37 @@
+<div class="card">
+    <div class="card-body">
+        <h1 class="card-title"><%= @recipe.title.titleize %> Ingredients</h1>
+        <% if @recipe_ingredients.count.zero? %>
+                <div class="alert alert-secondary mb-3">This recipe has no ingredients</div>
+        <% else %>
+            <div class="list-group list-group-flush mb-3">
+                <% @recipe_ingredients.each do |recipe_ingredient| %>
+                    <a href="<%= edit_recipe_ingredient_path(@recipe, recipe_ingredient) %>" class="list-group-item list-group-item-action">
+                        <strong><%= recipe_ingredient.mixable.name.titleize %></strong>
+                        <% if recipe_ingredient.note.present? %>
+                            <span>(<%= recipe_ingredient.note %>)</span>
+                        <% end %>
+                        <span class="text-secondary">
+                            <% if recipe_ingredient.amount.nil? && recipe_ingredient.units.nil? %>
+                                to taste
+                            <% else %>
+                                <%= recipe_ingredient.amount_as_mixed_number %>
+                                <% if recipe_ingredient.custom_units? %>
+                                    <%= recipe_ingredient.units_label %>
+                                <% elsif recipe_ingredient.units.present? %>
+                                    <abbr title="<%= recipe_ingredient.units_label %>">
+                                        <%= recipe_ingredient.units_abbreviation %>
+                                    </abbr>
+                                <% end %>
+                            <% end %>
+                        </span>
+                    </a>
+                <% end %>
+            </div>
+        <% end %>
+
+        <%= link_to('Back to Edit Recipe', edit_recipe_path(@recipe), class: 'btn btn-outline-secondary') %>
+        <%= link_to('Add Ingredient', new_recipe_ingredient_path(@recipe), class: 'btn btn-success') %>
+        <%= link_to('Finish', recipe_path(@recipe), class: 'btn btn-primary') %>
+    </div>
+</div>
