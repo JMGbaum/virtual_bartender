@@ -1,10 +1,16 @@
 class UsersController < ApplicationController
+  before_action :authorize, only: %i[edit]
+
   def show
     @user = User.find(params[:id])
   end
 
   def new
     @user = User.new
+  end
+
+  def edit
+    @user = current_user
   end
 
   # def index
@@ -21,6 +27,10 @@ class UsersController < ApplicationController
     end
   end
   private
+
+    def authorize
+      redirect_to(request.headers["Referer"]) unless logged_in?
+    end
 
     def user_params
       params.require(:user).permit(:first_name, :last_name, :birthday, :country, :email, :password,
