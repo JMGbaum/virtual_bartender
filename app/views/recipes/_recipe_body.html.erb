@@ -1,0 +1,43 @@
+<div class="card-body">
+    <div class="<%= 'd-none d-md-block' if @recipe.image.attached? %>">
+        <h1 class="card-title">
+            <%= @recipe.title %>
+            <% if logged_in? && @recipe.author_id == current_user.id %>
+                <%= link_to('Edit', edit_recipe_path(@recipe), class: 'btn btn-outline-secondary') %>
+            <% end %>
+        </h1>
+        <% if @recipe.author_id? %>
+            <h6 class="text-muted">Submitted by <%= link_to(@recipe.author.first_name, @recipe.author) %></h6>
+        <% end %>
+
+        <% if @recipe.servings? %>
+            <h6 class="text-muted">Makes <%= @recipe.servings %> <%= "serving".pluralize(@recipe.servings) %></h6>
+        <% end %>
+
+        <% if @recipe.description? %>
+            <p class="card-text"><%= @recipe.description %></p>
+        <% end %>
+        
+        <% if @recipe.recipe_ingredients.count.positive? %>
+            <hr>
+        <% end %>
+    </div>
+
+    <% if @recipe.recipe_ingredients.count.positive? %>
+        <h4>Ingredients</h4>
+        <ul id="ingredients">
+            <% @recipe.recipe_ingredients.each do |ri| %>
+                <li>
+                    <%= render(partial: 'shared/recipe_ingredient', locals: { recipe_ingredient: ri }) %>
+                </li>
+            <% end %>
+        </ul>
+    <% end %>
+
+    <% if @recipe.instructions? %>
+        <hr>
+
+        <h4 class="card-title">Instructions</h5>
+        <p class="card-text"><%= simple_format(@recipe.instructions) %></p>
+    <% end %>
+</div>
