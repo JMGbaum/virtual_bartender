@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   resources :recipes do
     resources :ingredients, controller: 'recipe_ingredients'
   end
-  resources :users
+  resources :users, except: %i[index]
   resources :tags, only: %i[show]
   
 end

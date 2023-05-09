@@ -1,24 +1,54 @@
-# README
+# Virtual Mixologist
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Virtual Mixologist is a web application build in Ruby on Rails for the Muhlenberg College Computer Science CUE in Spring 2023. The website allows users to create, browse, and rate drink recipes, and browse and save liquor products.
 
-Things you may want to cover:
+**Note:** This application does not come with any data. You must fill your database with your own data.
 
-* Ruby version
+### Dependencies
 
-* System dependencies
+- Ruby v3.2.0
 
-* Configuration
+- Rails v7.0.4.1
 
-* Database creation
+- MySQL v8.0.30
 
-* Database initialization
+- Bundler gem v2.4.5
 
-* How to run the test suite
+### Setup
 
-* Services (job queues, cache servers, search engines, etc.)
+**Prerequisites:** all dependencies should be installed and configured.
 
-* Deployment instructions
+1. Clone the repository to your local device.
 
-* ...
+2. Create a new file called `.env` inside the root project folder. Copy and paste the following code into that file, replacing "\<password\>" with the MySQL root password:
+
+   ```env
+   VIRTUAL_BARTENDER_DATABASE_PASSWORD=<password>
+   VIRTUAL_BARTENDER_DEVELOPMENT_DATABASE_PASSWORD=<password>
+   ```
+
+3. Open a terminal and navigate to the root project directory. Then, run the following command:
+
+   ```unix
+   bundle install
+   ```
+
+4. To create a new database, run the following command:
+
+   ```unix
+   rails db:create
+   ```
+
+5. Make sure the database schema is up to date by running the following command:
+
+   ```unix
+   rails db:migrate
+   ```
+
+6. Finally, start the server:
+
+   ```unix
+   rails server
+   ```
+
+7. You should be able to access the website by visiting http://localhost:3000/ in your favorite browser.
