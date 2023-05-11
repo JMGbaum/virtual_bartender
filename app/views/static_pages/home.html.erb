@@ -57,14 +57,15 @@
          <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <% @recommendation.each do |recipe|%>
-                        <div class="carousel-item active">
+                        <div class="carousel-item<%= ' active' if recipe.id == @recommendation.first.id %>">
                                 <div class="card">
                                     <% if recipe.image.attached? %>
-                                        <%= image_tag(recipe.image, class: 'card-img-top') %>
+                                        <%= image_tag(recipe.image, class: 'card-img-top', style: 'height: 75vh; object-fit: contain;') %>
                                     <% end %>
 
-                                    <div class="card-body text-center">
-                                        <h5 class="card-title"> Recommended Recipe: <%=recipe.title %></h5>
+                                    <div class="card-body text-center" style="<%= 'height: 80vh;' unless recipe.image.attached?%>">
+                                        <%= link_to('', recipe, class: 'stretched-link') %>
+                                        <h5 class="card-title">Recommended Recipe: <%=recipe.title %></h5>
 
                                         <% if recipe.description? %>
                                             <p class="card-text"><%= recipe.description.truncate(80, separator: /\s/) %></p>
